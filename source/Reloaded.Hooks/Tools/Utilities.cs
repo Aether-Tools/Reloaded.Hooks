@@ -25,12 +25,14 @@ namespace Reloaded.Hooks.Tools
         /// </summary>
         public static Assembler.Assembler Assembler { get; }
 
+        public static DirectoryInfo? FasmBasePath { get; set; } = null;
+
         private static object _lock = new object();
         private static MemoryBufferHelper _bufferHelper;
 
         static Utilities()
         {
-            Assembler     = new Assembler.Assembler();
+            Assembler     = new Assembler.Assembler(fasmDir: FasmBasePath?.ToString());
             _bufferHelper = new MemoryBufferHelper(Process.GetCurrentProcess());
         }
 

@@ -11,7 +11,7 @@ on:
 
 env: 
   SOLUTION_PATH: ./source/Reloaded.Hooks.sln
-  NUPKG_GLOB: ./source/**/bin/Release/*.nupkg
+  NUPKG_GLOB: ./source/Reloaded.Hooks/bin/Release/*.nupkg
   IS_RELEASE: ${{ startsWith(github.ref, 'refs/tags/') }}
 
 jobs:

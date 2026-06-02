@@ -38,7 +38,13 @@ jobs:
       run: dotnet build -c Release "$env:SOLUTION_PATH"
 
     - name: Test
-      run: dotnet test "$env:SOLUTION_PATH"
+      run: |
+           dotnet tool install --global altcover.global --version 8.2.833
+           $ipmo = (AltCover ImportModule | Out-String)
+           Invoke-Expression $ipmo
+    
+           dotnet test -f net6.0 .\source\Reloaded.Hooks.Tests.X86\Reloaded.Hooks.Tests.X86.csproj /p:AltCover=true /p:CopyLocalLockFileAssemblies="true" /p:AltCoverAttributeFilter="ExcludeFromCodeCoverageAttribute" /p:AltCoverAssemblyExcludeFilter="Reloaded.Hooks.Tests.X86|Reloaded.Hooks.Tests.X64|Reloaded.Hooks.Tests.Shared|xunit\.*" /p:AltCoverTypeFilter="xunit\.*|AltCover\.*|Reloaded\.Assembler.*" /p:AltCoverReport="../../coverage-86.xml"
+           dotnet test -f net6.0 .\source\Reloaded.Hooks.Tests.X64\Reloaded.Hooks.Tests.X64.csproj /p:AltCover=true /p:CopyLocalLockFileAssemblies="true" /p:AltCoverAttributeFilter="ExcludeFromCodeCoverageAttribute" /p:AltCoverAssemblyExcludeFilter="Reloaded.Hooks.Tests.X86|Reloaded.Hooks.Tests.X64|Reloaded.Hooks.Tests.Shared|xunit\.*" /p:AltCoverTypeFilter="xunit\.*|AltCover\.*|Reloaded\.Assembler.*" /p:AltCoverReport="../../coverage-64.xml"
 
     - name: Upload NuGet Package Artifact
       uses: actions/upload-artifact@v4

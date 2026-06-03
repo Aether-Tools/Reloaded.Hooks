@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <PackageId>AetherTools.Anamnesis.Reloaded.Hooks</PackageId>
+    <AssemblyName>AetherTools.Anamnesis.Reloaded.Hooks</AssemblyName>
     <TargetFrameworks>net7.0;net5.0;netstandard2.0</TargetFrameworks>
     <Authors>Sewer56, ergoxiv</Authors>
     <LangVersion>preview</LangVersion>
@@ -14,7 +15,7 @@
     <RepositoryType>git</RepositoryType>
 	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>Advanced native function hooks for x86, x64. Welcome to the next level!</Description>
-    <Version>4.3.3-anamv2</Version>
+    <Version>4.3.3-anamv3</Version>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageIcon>Icon.png</PackageIcon>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
@@ -25,11 +26,13 @@
     <!-- Hopefully these attributes can be stripped in the future. -->
     <IsTrimmable>true</IsTrimmable>
     <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+    <IsAotCompatible>true</IsAotCompatible>
+    <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Iced" Version="1.17.0" />
-    <PackageReference Include="AetherTools.Anamnesis.Reloaded.Assembler" Version="1.0.14-anamv1">
+    <PackageReference Include="AetherTools.Anamnesis.Reloaded.Assembler" Version="1.0.14-anamv2">
       <IncludeAssets>All</IncludeAssets>
       <PrivateAssets>None</PrivateAssets>
     </PackageReference>

@@ -23,22 +23,40 @@ namespace Reloaded.Hooks.Tools
         /// Assembler is costly to instantiate.
         /// We statically instantiate it here to avoid multiple instantiations.
         /// </summary>
-        public static Assembler.Assembler Assembler { get; }
+        public static Assembler.Assembler Assembler => _assembler
+            ?? throw new InvalidOperationException("Utilities must be initialized before use. Ensure that .Initialize() is called.");
 
-        public static DirectoryInfo? FasmBasePath { get; set; } = null;
-
-        private static object _lock = new object();
+        private static Assembler.Assembler _assembler = null;
+        private static readonly object _lock = new();
+        private static readonly object _initLock = new();
         private static MemoryBufferHelper _bufferHelper;
 
         static Utilities()
         {
-            Assembler     = new Assembler.Assembler(fasmDir: FasmBasePath?.ToString());
             _bufferHelper = new MemoryBufferHelper(Process.GetCurrentProcess());
         }
 
         private static string Architecture(bool is64bit) => is64bit ? "use64" : "use32";
 
         private static string SetAddress(nuint address) => $"org {address}";
+
+        /// <summary>
+        /// Initializes all utility tools.
+        /// </summary>
+        /// <remarks>
+        /// This must be called before using Reloaded.Hooks.
+        /// </remarks>
+        /// <param name="fasmBasePath">
+        /// An optional explicit path to the base directory of the FASM DLL file.
+        /// If not provided, the assembler will try to resolve from the executing assembly's location.
+        /// </param>
+        public static void Initialize(string? fasmBasePath = null)
+        {
+            lock (_initLock)
+            {
+               _assembler ??= new Assembler.Assembler(fasmDir: fasmBasePath);
+            }
+        }
 
         /// <summary>
         /// Writes a pointer to a given target address in unmanaged, non-reclaimable memory.

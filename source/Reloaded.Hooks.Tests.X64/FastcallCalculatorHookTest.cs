@@ -27,6 +27,8 @@ namespace Reloaded.Hooks.Tests.X64
 
         public FastcallCalculatorHookTest()
         {
+            Reloaded.Hooks.Tools.Utilities.Initialize();
+
             _calculator = new FastcallCalculator();
             _addFunction = ReloadedHooks.Instance.CreateWrapper<FastcallCalculator.AddFunction>((long) _calculator.Add, out var addFunction);
             _subtractFunction = ReloadedHooks.Instance.CreateWrapper<FastcallCalculator.SubtractFunction>((long)_calculator.Subtract, out _);

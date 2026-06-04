@@ -36,6 +36,8 @@ namespace Reloaded.Hooks.Tests.X64
 
         public CalculatorDoubleHookTest()
         {
+            Reloaded.Hooks.Tools.Utilities.Initialize();
+
             _nativeCalculator = new NativeCalculator();
             
             _addFunction = ReloadedHooks.Instance.CreateWrapper<NativeCalculator.AddFunction>((long) _nativeCalculator.Add, out var addPointer);

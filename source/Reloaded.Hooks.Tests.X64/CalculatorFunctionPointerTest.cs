@@ -27,6 +27,8 @@ namespace Reloaded.Hooks.Tests.X64
 
         public unsafe CalculatorFunctionPointerTest()
         {
+            Reloaded.Hooks.Tools.Utilities.Initialize();
+
             _nativeCalculator = new NativeCalculator();
             // We can assign directly because convention matches.
             // The pointers are CDECL and the type is CdeclFuncPtr

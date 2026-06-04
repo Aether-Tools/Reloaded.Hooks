@@ -27,6 +27,8 @@ namespace Reloaded.Hooks.Tests.X64
 
         public unsafe CalculatorHookTest()
         {
+            Reloaded.Hooks.Tools.Utilities.Initialize();
+
             _nativeCalculator = new NativeCalculator();
             _addFunction = ReloadedHooks.Instance.CreateWrapper<NativeCalculator.AddFunction>((long) _nativeCalculator.Add, out var addWrapper);
             _subtractFunction = ReloadedHooks.Instance.CreateWrapper<NativeCalculator.SubtractFunction>((long)_nativeCalculator.Subtract, out _);

@@ -20,6 +20,8 @@ namespace Reloaded.Hooks.Tests.X64
 
         public CalculatorDoubleHookEnableDisableTest()
         {
+            Reloaded.Hooks.Tools.Utilities.Initialize();
+
             _nativeCalculator = new NativeCalculator();
             _multiplyFunction = ReloadedHooks.Instance.CreateWrapper<NativeCalculator.MultiplyFunction>((long)_nativeCalculator.Multiply, out _);
         }

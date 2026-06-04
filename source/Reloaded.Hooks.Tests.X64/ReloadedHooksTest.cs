@@ -30,6 +30,8 @@ namespace Reloaded.Hooks.Tests.X64
 
         public ReloadedHooksTest()
         {
+            Reloaded.Hooks.Tools.Utilities.Initialize();
+
             _nativeCalculator = new NativeCalculator();
             _hooks = new ReloadedHooks();
 

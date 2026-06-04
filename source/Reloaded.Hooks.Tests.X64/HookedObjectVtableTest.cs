@@ -18,6 +18,8 @@ namespace Reloaded.Hooks.Tests.X64
 
         public HookedObjectVtableTest()
         {
+            Reloaded.Hooks.Tools.Utilities.Initialize();
+
             _nativeCalculator = new NativeCalculator();
         }
 

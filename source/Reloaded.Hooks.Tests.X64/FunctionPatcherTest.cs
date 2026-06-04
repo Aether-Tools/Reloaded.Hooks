@@ -28,6 +28,8 @@ namespace Reloaded.Hooks.Tests.X64
 
         public FunctionPatcherTest()
         {
+            Reloaded.Hooks.Tools.Utilities.Initialize();
+
             _dummyFunctions = new DummyFunctions();
             _returnFive = ReloadedHooks.Instance.CreateWrapper<DummyFunctions.ReturnNumberDelegate>((long) _dummyFunctions.ReturnFive, out _);
             _returnSix = ReloadedHooks.Instance.CreateWrapper<DummyFunctions.ReturnNumberDelegate>((long)_dummyFunctions.ReturnSix, out _);
@@ -128,13 +130,12 @@ namespace Reloaded.Hooks.Tests.X64
             var buffer = Utilities.FindOrCreateBufferInRange(100);
             nuint jmpTarget = _dummyFunctions.ReturnSix;
 
-            var relativeJmp = new string[]
-            {
-                $"{Macros._use32}",
-                $"jmp {(long)jmpTarget - (long)buffer.Properties.WritePointer}", // FASM relative offsets are relative to start of instruction.
-            };
+            var asm = Utilities.AssembleRelativeJump(
+                (nuint)buffer.Properties.WritePointer,
+                (nuint)jmpTarget,
+                false // is64Bit = false for x86
+            );
 
-            var asm = _assembler.Assemble(relativeJmp);
             var relativePtr = buffer.Add(asm, 1);
 
             // Create a wrapper and call to confirm jump works.

@@ -44,6 +44,7 @@ namespace Reloaded.Hooks.Benchmarks
             _functionPtrHookedCalculatorNoCallManaged = new TNativeCalculator();
             _functionPtrDangerousHookedCalculator = new TNativeCalculator();
             var hooks = ReloadedHooks.Instance;
+            Reloaded.Hooks.Tools.Utilities.Initialize();
 
             _delegateHookAddFunctionNoCallOriginal = hooks.CreateWrapper<NativeCalculator.AddFunction>((long)_delegateHookedCalculatorNoCallOriginal.Add, out var _);
             _delegateHookAddFunction = hooks.CreateWrapper<NativeCalculator.AddFunction>((long)_delegateHookedCalculator.Add, out var _);

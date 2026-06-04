@@ -26,6 +26,8 @@ namespace Reloaded.Hooks.Tests.X64
 
         public FastcallCalculatorFunctionPointerTest()
         {
+            Reloaded.Hooks.Tools.Utilities.Initialize();
+
             _nativeCalculator = new FastcallCalculator();
             _addFunctionPointer = ReloadedHooks.Instance.CreateWrapper<CalculatorFunction>((long)_nativeCalculator.Add, out var _);
             _subFunctionPointer = ReloadedHooks.Instance.CreateWrapper<CalculatorFunction>((long)_nativeCalculator.Subtract, out var _);

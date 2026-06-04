@@ -26,6 +26,8 @@ public class LongJumpTest
     [Fact]
     public void LongRelativeJump()
     {
+        Reloaded.Hooks.Tools.Utilities.Initialize();
+
         using var assembler = new Assembler.Assembler();
         const int expectedResult = 42069;
         
